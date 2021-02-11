@@ -51,6 +51,8 @@ int main(void)
     }
 
     Music music = LoadMusicStream("resources/mini1111.xm");
+    music.looping = false;
+    float pitch = 1.0f;
 
     PlayMusicStream(music);
 
@@ -82,6 +84,11 @@ int main(void)
             if (pause) PauseMusicStream(music);
             else ResumeMusicStream(music);
         }
+
+        if (IsKeyDown(KEY_DOWN)) pitch -= 0.01f;
+        else if (IsKeyDown(KEY_UP)) pitch += 0.01f;
+        
+        SetMusicPitch(music, pitch);
 
         // Get timePlayed scaled to bar dimensions
         timePlayed = GetMusicTimePlayed(music)/GetMusicTimeLength(music)*(screenWidth - 40);
